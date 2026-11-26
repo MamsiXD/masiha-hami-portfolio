@@ -1,0 +1,349 @@
+@import "tailwindcss";
+
+/* Local Yekan Bakh Font Faces (place files in public/assets/fonts/) */
+@font-face {
+  font-family: "Yekan Bakh";
+  src:
+    url("/assets/fonts/YekanBakh-Light.woff2") format("woff2"),
+    url("/assets/fonts/YekanBakh-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src:
+    url("/assets/fonts/YekanBakh-Regular.woff2") format("woff2"),
+    url("/assets/fonts/YekanBakh-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src:
+    url("/assets/fonts/YekanBakh-Medium.woff2") format("woff2"),
+    url("/assets/fonts/YekanBakh-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src:
+    url("/assets/fonts/YekanBakh-SemiBold.woff2") format("woff2"),
+    url("/assets/fonts/YekanBakh-SemiBold.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src:
+    url("/assets/fonts/YekanBakh-Bold.woff2") format("woff2"),
+    url("/assets/fonts/YekanBakh-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* Public Portfolio Font Families */
+  --font-sans: "Plus Jakarta Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-serif: "Instrument Serif", "Yekan Bakh", serif;
+  --font-farsi: "Yekan Bakh", "Vazirmatn", sans-serif;
+
+  /* Monochrome Craft Admin Font Families */
+  --font-body-md: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-body-sm: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-body-lg: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-headline-xl: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-headline-xl-mobile: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-headline-lg: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-headline-lg-mobile: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-headline-md: "DM Sans", "Yekan Bakh", "Vazirmatn", sans-serif;
+  --font-label-code: "JetBrains Mono", monospace;
+  --font-label-caps: "JetBrains Mono", monospace;
+
+  /* Monochrome Craft Admin Typography Sizes */
+  --text-headline-xl: 3.25rem;
+  --text-headline-xl--line-height: 3.75rem;
+  --text-headline-xl--letter-spacing: -0.03em;
+
+  --text-headline-xl-mobile: 2.25rem;
+  --text-headline-xl-mobile--line-height: 2.75rem;
+  --text-headline-xl-mobile--letter-spacing: -0.02em;
+
+  --text-headline-lg: 2rem;
+  --text-headline-lg--line-height: 2.5rem;
+  --text-headline-lg--letter-spacing: -0.02em;
+
+  --text-headline-lg-mobile: 1.5rem;
+  --text-headline-lg-mobile--line-height: 2rem;
+  --text-headline-lg-mobile--letter-spacing: -0.01em;
+
+  --text-headline-md: 1.25rem;
+  --text-headline-md--line-height: 1.75rem;
+  --text-headline-md--letter-spacing: -0.01em;
+
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+
+  --text-body-md: 0.9375rem;
+  --text-body-md--line-height: 1.5rem;
+
+  --text-body-sm: 0.8125rem;
+  --text-body-sm--line-height: 1.25rem;
+
+  --text-label-code: 0.8125rem;
+  --text-label-code--line-height: 1.125rem;
+
+  --text-label-caps: 0.6875rem;
+  --text-label-caps--line-height: 1rem;
+  --text-label-caps--letter-spacing: 0.06em;
+
+  /* Public Portfolio Brand Colors */
+  --color-brand-50: #f8fafc;
+  --color-brand-900: #0b0f17;
+  --color-brand-950: #06080d;
+
+  /* Monochrome Craft Admin Color Tokens (bound to CSS vars for dark/light switching) */
+  --color-on-primary: var(--mc-on-primary);
+  --color-background: var(--mc-background);
+  --color-surface-dark: var(--mc-surface-dark);
+  --color-inverse-primary: #5d5f5f;
+  --color-on-tertiary: #32302d;
+  --color-on-secondary: #2f3038;
+  --color-surface-container: var(--mc-surface-container);
+  --color-on-tertiary-fixed: #1d1b19;
+  --color-primary-fixed: #e2e2e2;
+  --color-on-primary-container: #636565;
+  --color-on-secondary-fixed: #1a1b22;
+  --color-surface-dark-elevated: var(--mc-surface-dark-elevated);
+  --color-on-background: var(--mc-on-background);
+  --color-on-surface-variant: var(--mc-on-surface-variant);
+  --color-accent-teal: #6C969D;
+  --color-on-primary-fixed-variant: #454747;
+  --color-surface-container-low: var(--mc-surface-container-low);
+  --color-border-light-subtle: #f4f4f5;
+  --color-surface-dim: #131315;
+  --color-surface-light: #fafafa;
+  --color-surface-container-high: var(--mc-surface-container-high);
+  --color-border-dark: var(--mc-border-dark);
+  --color-secondary-container: #4a4b53;
+  --color-surface-container-lowest: var(--mc-surface-container-lowest);
+  --color-on-primary-fixed: #1a1c1c;
+  --color-on-tertiary-container: #676460;
+  --color-border-light: #e4e4e7;
+  --color-tertiary-fixed-dim: #cbc6c1;
+  --color-error-container: #93000a;
+  --color-inverse-on-surface: #313032;
+  --color-border-dark-subtle: #18181b;
+  --color-error: #ffb4ab;
+  --color-surface-light-elevated: #ffffff;
+  --color-secondary: #c6c5cf;
+  --color-surface-tint: #c6c6c7;
+  --color-secondary-fixed-dim: #c6c5cf;
+  --color-primary-container: #e2e2e2;
+  --color-on-secondary-container: #bcbbc5;
+  --color-on-tertiary-fixed-variant: #494643;
+  --color-surface-container-highest: var(--mc-surface-container-highest);
+  --color-on-surface: var(--mc-on-surface);
+  --color-tertiary-fixed: #e7e1dd;
+  --color-on-error: #690005;
+  --color-outline-variant: #444748;
+  --color-outline: #8e9192;
+  --color-on-error-container: #ffdad6;
+  --color-primary-fixed-dim: #c6c6c7;
+  --color-secondary-fixed: #e3e1ec;
+  --color-surface: #131315;
+  --color-text-muted-dark: var(--mc-text-muted-dark);
+  --color-on-secondary-fixed-variant: #46464e;
+  --color-tertiary: #ffffff;
+  --color-surface-bright: #39393b;
+  --color-text-muted-light: #71717a;
+  --color-inverse-surface: #e5e1e4;
+  --color-surface-variant: #353437;
+  --color-primary: var(--mc-primary);
+  --color-tertiary-container: #e7e1dd;
+
+  /* Monochrome Craft Spacing Tokens */
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.5rem;
+  --spacing-margin: 3rem;
+  --spacing-margin-mobile: 1.25rem;
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 1rem;
+}
+
+:root {
+  /* Public Portfolio Light Theme */
+  --bg-color: #f7f9fa;
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(0, 0, 0, 0.08);
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --ring-color: rgba(0, 0, 0, 0.05);
+
+  /* Monochrome Craft Admin Light Theme */
+  --mc-surface-dark: #fafafa;
+  --mc-surface-dark-elevated: #ffffff;
+  --mc-background: #fafafa;
+  --mc-on-background: #09090b;
+  --mc-surface-container-lowest: #f4f4f5;
+  --mc-surface-container-low: #ffffff;
+  --mc-surface-container: #f4f4f5;
+  --mc-surface-container-high: #e4e4e7;
+  --mc-surface-container-highest: #d4d4d8;
+  --mc-primary: #18181b;
+  --mc-on-primary: #fafafa;
+  --mc-on-surface: #18181b;
+  --mc-on-surface-variant: #52525b;
+  --mc-text-muted-dark: #71717a;
+  --mc-border-dark: #e4e4e7;
+}
+
+.dark {
+  /* Public Portfolio Dark Theme */
+  --bg-color: #0b0d13;
+  --card-bg: rgba(18, 22, 31, 0.82);
+  --card-border: rgba(255, 255, 255, 0.08);
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --ring-color: rgba(255, 255, 255, 0.06);
+
+  /* Monochrome Craft Admin Dark Theme */
+  --mc-surface-dark: #09090b;
+  --mc-surface-dark-elevated: #121215;
+  --mc-background: #131315;
+  --mc-on-background: #e5e1e4;
+  --mc-surface-container-lowest: #0e0e10;
+  --mc-surface-container-low: #1c1b1d;
+  --mc-surface-container: #201f22;
+  --mc-surface-container-high: #2a2a2c;
+  --mc-surface-container-highest: #353437;
+  --mc-primary: #ffffff;
+  --mc-on-primary: #2f3131;
+  --mc-on-surface: #e5e1e4;
+  --mc-on-surface-variant: #c4c7c8;
+  --mc-text-muted-dark: #a1a1aa;
+  --mc-border-dark: #27272a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    overflow-x: hidden;
+    -webkit-tap-highlight-color: transparent;
+    overscroll-behavior: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html[dir="rtl"] body {
+    font-family: "Yekan Bakh", "Vazirmatn", "Plus Jakarta Sans", sans-serif;
+  }
+}
+
+.portfolio-shell {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  min-height: 100dvh;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Scoped Monochrome Craft radii for Admin screens so Public Portfolio keeps standard Tailwind radii */
+.admin-shell {
+  --radius-sm: 0.125rem;
+  --radius-lg: 0.25rem;
+  --radius-xl: 0.5rem;
+  min-height: 100dvh;
+}
+
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@keyframes float-subtle {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-7px) rotate(1deg);
+  }
+}
+
+@keyframes pulse-ring {
+  0% {
+    opacity: 0.35;
+    transform: scale(0.99);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.01);
+  }
+  100% {
+    opacity: 0.35;
+    transform: scale(0.99);
+  }
+}
+
+.animate-float-slow {
+  animation: float-subtle 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-subtle 7s ease-in-out -3s infinite reverse;
+}
+
+.orbit-ring {
+  border: 1px solid var(--ring-color);
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+}
+
+@layer components {
+  .glass-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--card-border);
+  }
+
+  .pill-badge {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pill-badge:active {
+    transform: scale(0.95);
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar,
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar,
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
