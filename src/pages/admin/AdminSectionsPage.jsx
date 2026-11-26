@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import SvgIcon from '../../components/SvgIcon';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { usePortfolio } from '../../context/PortfolioContext';
@@ -19,7 +19,7 @@ export default function AdminSectionsPage() {
 
   const activeCount = cms.sections.filter((s) => s.visible).length;
 
-  const handleAdd = (e: React.FormEvent) => {
+  const handleAdd = (e) => {
     e.preventDefault();
     if (!title.trim()) return;
     addCustomSection(

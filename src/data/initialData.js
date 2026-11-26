@@ -1,6 +1,4 @@
-import { Language, PortfolioCMSState } from '../types/portfolio';
-
-export const PORTFOLIO_DICTIONARY: Record<Language, Record<string, string>> = {
+export const PORTFOLIO_DICTIONARY = {
   en: {
     nav_brand: 'Masiha Hami',
     menu_about: 'About',
@@ -141,7 +139,7 @@ export const SPOTLIGHT_THUMBNAIL_URL = '/assets/images/portfolio-cover.svg';
 
 export const EDITOR_COVER_URL = '/assets/images/portfolio-cover.svg';
 
-export const INITIAL_CMS_STATE: PortfolioCMSState = {
+export const INITIAL_CMS_STATE = {
   heroStatusEn: 'Frontend Craftsman',
   heroStatusFa: 'توسعه‌دهنده فرانت‌اند',
   email: 'masihar111@gmail.com',
@@ -294,7 +292,7 @@ export const INITIAL_CMS_STATE: PortfolioCMSState = {
     { id: 'orb-react', label: 'React', active: true },
     { id: 'orb-tailwind', label: 'Tailwind CSS', active: true },
     { id: 'orb-python', label: 'Python', active: true },
-    { id: 'orb-ts', label: 'TypeScript', active: true },
+    { id: 'orb-ts', label: 'JavaScript', active: true },
     { id: 'orb-nextjs', label: 'Next.js', active: false },
     { id: 'orb-fastapi', label: 'FastAPI', active: false },
     { id: 'orb-pg', label: 'PostgreSQL', active: false },

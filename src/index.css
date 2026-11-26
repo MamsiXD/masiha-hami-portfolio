@@ -1,11 +1,17 @@
 @import "tailwindcss";
 
-/* Local Yekan Bakh Font Faces (place files in public/assets/fonts/) */
+/* Local Yekan Bakh Font Faces (bundled in public/assets/fonts/) */
 @font-face {
   font-family: "Yekan Bakh";
-  src:
-    url("/assets/fonts/YekanBakh-Light.woff2") format("woff2"),
-    url("/assets/fonts/YekanBakh-Light.ttf") format("truetype");
+  src: url("/assets/fonts/YekanBakh-Thin.woff2") format("woff2");
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src: url("/assets/fonts/YekanBakh-Light.woff2") format("woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -13,9 +19,7 @@
 
 @font-face {
   font-family: "Yekan Bakh";
-  src:
-    url("/assets/fonts/YekanBakh-Regular.woff2") format("woff2"),
-    url("/assets/fonts/YekanBakh-Regular.ttf") format("truetype");
+  src: url("/assets/fonts/YekanBakh-Regular.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -23,19 +27,7 @@
 
 @font-face {
   font-family: "Yekan Bakh";
-  src:
-    url("/assets/fonts/YekanBakh-Medium.woff2") format("woff2"),
-    url("/assets/fonts/YekanBakh-Medium.ttf") format("truetype");
-  font-weight: 500;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Yekan Bakh";
-  src:
-    url("/assets/fonts/YekanBakh-SemiBold.woff2") format("woff2"),
-    url("/assets/fonts/YekanBakh-SemiBold.ttf") format("truetype");
+  src: url("/assets/fonts/YekanBakh-SemiBold.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -43,10 +35,32 @@
 
 @font-face {
   font-family: "Yekan Bakh";
-  src:
-    url("/assets/fonts/YekanBakh-Bold.woff2") format("woff2"),
-    url("/assets/fonts/YekanBakh-Bold.ttf") format("truetype");
+  src: url("/assets/fonts/YekanBakh-Bold.woff2") format("woff2");
   font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src: url("/assets/fonts/YekanBakh-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src: url("/assets/fonts/YekanBakh-Black.woff2") format("woff2");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Yekan Bakh";
+  src: url("/assets/fonts/YekanBakh-ExtraBlack.woff2") format("woff2");
+  font-weight: 950;
   font-style: normal;
   font-display: swap;
 }

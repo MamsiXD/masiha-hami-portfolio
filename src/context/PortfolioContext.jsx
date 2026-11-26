@@ -1,49 +1,13 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { INITIAL_CMS_STATE, PORTFOLIO_DICTIONARY } from '../data/initialData';
-import {
-  AuditLogEntry,
-  Language,
-  LayoutSection,
-  PortfolioCMSState,
-  ProjectItem,
-  ThemeMode,
-} from '../types/portfolio';
 
 const STORAGE_KEY_CMS = 'portfolio_cms_state_v1';
 const STORAGE_KEY_THEME = 'portfolio_theme';
 const STORAGE_KEY_LANG = 'portfolio_lang';
 
-interface PortfolioContextValue {
-  theme: ThemeMode;
-  toggleTheme: () => void;
-  language: Language;
-  setLanguage: (lang: Language) => void;
-  toggleLanguage: () => void;
-  rtlSimulated: boolean;
-  setRtlSimulated: (val: boolean) => void;
-  t: (key: string) => string;
-  cms: PortfolioCMSState;
-  toggleSectionVisibility: (id: string) => void;
-  reorderSections: (fromIndex: number, toIndex: number) => void;
-  addCustomSection: (title: string, anchor: string, contentEn?: string) => void;
-  removeSection: (id: string) => void;
-  toggleSkillVisibility: (id: string) => void;
-  toggleOrbitalSkill: (id: string) => void;
-  toggleProjectFeatured: (id: string) => void;
-  toggleProjectVisibility: (id: string) => void;
-  saveProject: (project: ProjectItem) => void;
-  createProject: () => ProjectItem;
-  deleteProject: (id: string) => void;
-  reorderProjects: (fromIndex: number, toIndex: number) => void;
-  updateHeroStatus: (statusEn: string, statusFa?: string) => void;
-  updateContactEmail: (email: string) => void;
-  addContactMessage: (name: string, email: string, message: string) => void;
-  resetCMSState: () => void;
-}
+const PortfolioContext = createContext(null);
 
-const PortfolioContext = createContext<PortfolioContextValue | null>(null);
-
-function safeGetItem(key: string): string | null {
+function safeGetItem(key) {
   try {
     return localStorage.getItem(key);
   } catch {
@@ -51,7 +15,7 @@ function safeGetItem(key: string): string | null {
   }
 }
 
-function safeSetItem(key: string, value: string): void {
+function safeSetItem(key, value) {
   try {
     localStorage.setItem(key, value);
   } catch {
@@ -59,7 +23,7 @@ function safeSetItem(key: string, value: string): void {
   }
 }
 
-function safeRemoveItem(key: string): void {
+function safeRemoveItem(key) {
   try {
     localStorage.removeItem(key);
   } catch {
@@ -67,11 +31,11 @@ function safeRemoveItem(key: string): void {
   }
 }
 
-function loadInitialCMS(): PortfolioCMSState {
+function loadInitialCMS() {
   try {
     const raw = safeGetItem(STORAGE_KEY_CMS);
     if (!raw) return INITIAL_CMS_STATE;
-    const parsed = JSON.parse(raw) as Partial<PortfolioCMSState>;
+    const parsed = JSON.parse(raw);
     return {
       ...INITIAL_CMS_STATE,
       ...parsed,
@@ -89,23 +53,23 @@ function loadInitialCMS(): PortfolioCMSState {
   }
 }
 
-function makeShortHash(): string {
+function makeShortHash() {
   return Math.random().toString(16).slice(2, 9);
 }
 
-export function PortfolioProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<ThemeMode>(() => {
+export function PortfolioProvider({ children }) {
+  const [theme, setTheme] = useState(() => {
     const saved = safeGetItem(STORAGE_KEY_THEME);
     return saved === 'light' ? 'light' : 'dark';
   });
 
-  const [language, setLanguageState] = useState<Language>(() => {
+  const [language, setLanguageState] = useState(() => {
     const saved = safeGetItem(STORAGE_KEY_LANG);
     return saved === 'fa' ? 'fa' : 'en';
   });
 
-  const [rtlSimulated, setRtlSimulated] = useState<boolean>(false);
-  const [cms, setCms] = useState<PortfolioCMSState>(loadInitialCMS);
+  const [rtlSimulated, setRtlSimulated] = useState(false);
+  const [cms, setCms] = useState(loadInitialCMS);
 
   useEffect(() => {
     const html = document.documentElement;
@@ -129,11 +93,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     safeSetItem(STORAGE_KEY_CMS, JSON.stringify(cms));
   }, [cms]);
 
-  const appendLog = (
-    prev: PortfolioCMSState,
-    entry: Omit<AuditLogEntry, 'id' | 'timeAgo'>
-  ): AuditLogEntry[] => {
-    const newEntry: AuditLogEntry = {
+  const appendLog = (prev, entry) => {
+    const newEntry = {
       ...entry,
       id: `log-${Date.now()}`,
       timeAgo: 'Just now',
@@ -145,7 +106,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
   };
 
-  const setLanguage = (lang: Language) => {
+  const setLanguage = (lang) => {
     setLanguageState(lang);
   };
 
@@ -153,11 +114,11 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     setLanguageState((prev) => (prev === 'en' ? 'fa' : 'en'));
   };
 
-  const t = (key: string): string => {
+  const t = (key) => {
     return PORTFOLIO_DICTIONARY[language][key] ?? PORTFOLIO_DICTIONARY.en[key] ?? key;
   };
 
-  const toggleSectionVisibility = (id: string) => {
+  const toggleSectionVisibility = (id) => {
     setCms((prev) => {
       const target = prev.sections.find((s) => s.id === id);
       if (!target) return prev;
@@ -179,7 +140,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const reorderSections = (fromIndex: number, toIndex: number) => {
+  const reorderSections = (fromIndex, toIndex) => {
     setCms((prev) => {
       if (
         fromIndex === toIndex ||
@@ -208,10 +169,10 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const addCustomSection = (title: string, anchor: string, contentEn?: string) => {
+  const addCustomSection = (title, anchor, contentEn) => {
     const ts = Date.now();
     const cleanAnchor = anchor.startsWith('#') ? anchor : `#${anchor}`;
-    const newSec: LayoutSection = {
+    const newSec = {
       id: `custom-${ts}`,
       title: title.trim() || 'Custom Showcase Block',
       anchor: cleanAnchor.replace(/\s+/g, '-').toLowerCase(),
@@ -238,14 +199,14 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  const removeSection = (id: string) => {
+  const removeSection = (id) => {
     setCms((prev) => ({
       ...prev,
       sections: prev.sections.filter((s) => s.id !== id),
     }));
   };
 
-  const toggleSkillVisibility = (id: string) => {
+  const toggleSkillVisibility = (id) => {
     setCms((prev) => {
       const target = prev.skills.find((s) => s.id === id);
       if (!target) return prev;
@@ -267,7 +228,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const toggleOrbitalSkill = (id: string) => {
+  const toggleOrbitalSkill = (id) => {
     setCms((prev) => {
       const target = prev.orbitalSkills.find((s) => s.id === id);
       if (!target) return prev;
@@ -289,7 +250,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const toggleProjectFeatured = (id: string) => {
+  const toggleProjectFeatured = (id) => {
     setCms((prev) => {
       const target = prev.projects.find((p) => p.id === id);
       if (!target) return prev;
@@ -312,7 +273,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const toggleProjectVisibility = (id: string) => {
+  const toggleProjectVisibility = (id) => {
     setCms((prev) => {
       const target = prev.projects.find((p) => p.id === id);
       if (!target) return prev;
@@ -344,10 +305,10 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const saveProject = (updated: ProjectItem) => {
+  const saveProject = (updated) => {
     setCms((prev) => {
       const exists = prev.projects.some((p) => p.id === updated.id);
-      const synced: ProjectItem = {
+      const synced = {
         ...updated,
         statusBadge: updated.publiclyVisible
           ? updated.featured
@@ -374,7 +335,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const createProject = (): ProjectItem => {
+  const createProject = () => {
     let idx = cms.projects.length + 1;
     let code = `prj_new_${String(idx).padStart(2, '0')}`;
     while (cms.projects.some((p) => p.id === code || p.codeId === code)) {
@@ -382,7 +343,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       code = `prj_new_${String(idx).padStart(2, '0')}`;
     }
     const maxOrder = cms.projects.reduce((max, p) => Math.max(max, p.sortOrder), 0);
-    const newProject: ProjectItem = {
+    const newProject = {
       id: code,
       codeId: code,
       slug: `/work/project-${idx}`,
@@ -392,8 +353,8 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
       descriptionFa: 'پروژه جدید ثبت شده از طریق ویرایشگر پنل مدیریت محتوا.',
       editorDescEn: 'Fresh portfolio entry configured via the Monochrome Craft CMS editor.',
       editorDescFa: 'پروژه جدید ثبت شده از طریق ویرایشگر پنل مدیریت محتوا.',
-      tags: ['React', 'TypeScript'],
-      adminTags: ['React', 'TypeScript'],
+      tags: ['React', 'JavaScript'],
+      adminTags: ['React', 'JavaScript'],
       statusBadge: 'DRAFT',
       publiclyVisible: false,
       featured: false,
@@ -426,7 +387,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     return newProject;
   };
 
-  const deleteProject = (id: string) => {
+  const deleteProject = (id) => {
     setCms((prev) => {
       const target = prev.projects.find((p) => p.id === id);
       return {
@@ -446,7 +407,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const reorderProjects = (fromIndex: number, toIndex: number) => {
+  const reorderProjects = (fromIndex, toIndex) => {
     setCms((prev) => {
       if (
         fromIndex === toIndex ||
@@ -470,7 +431,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const updateHeroStatus = (statusEn: string, statusFa?: string) => {
+  const updateHeroStatus = (statusEn, statusFa) => {
     setCms((prev) => ({
       ...prev,
       heroStatusEn: statusEn.trim() || prev.heroStatusEn,
@@ -486,7 +447,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  const updateContactEmail = (email: string) => {
+  const updateContactEmail = (email) => {
     const trimmed = email.trim();
     if (!trimmed) return;
     setCms((prev) => ({
@@ -506,7 +467,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
     }));
   };
 
-  const addContactMessage = (name: string, email: string, message: string) => {
+  const addContactMessage = (name, email, message) => {
     setCms((prev) => ({
       ...prev,
       contactMessages: [
@@ -562,7 +523,7 @@ export function PortfolioProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export function usePortfolio(): PortfolioContextValue {
+export function usePortfolio() {
   const ctx = useContext(PortfolioContext);
   if (!ctx) {
     throw new Error('usePortfolio must be used within a PortfolioProvider');

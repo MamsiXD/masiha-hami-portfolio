@@ -1,21 +1,12 @@
-import React from 'react';
-
-const RAW_SVG_MODULES = import.meta.glob<string>('../assets/svg/*.svg', {
+const RAW_SVG_MODULES = import.meta.glob('../assets/svg/*.svg', {
   eager: true,
   query: '?raw',
   import: 'default',
 });
 
-interface ParsedSvg {
-  viewBox: string;
-  fill: string;
-  stroke?: string;
-  innerHtml: string;
-}
+const SVG_CACHE = new Map();
 
-const SVG_CACHE = new Map<string, ParsedSvg>();
-
-function getParsedSvg(name: string): ParsedSvg | null {
+function getParsedSvg(name) {
   const cached = SVG_CACHE.get(name);
   if (cached) return cached;
 
@@ -35,22 +26,16 @@ function getParsedSvg(name: string): ParsedSvg | null {
     .replace(/<\/svg>\s*$/i, '')
     .trim();
 
-  const parsed: ParsedSvg = { viewBox, fill, stroke, innerHtml };
+  const parsed = { viewBox, fill, stroke, innerHtml };
   SVG_CACHE.set(name, parsed);
   return parsed;
-}
-
-export interface SvgIconProps {
-  name: string;
-  className?: string;
-  'aria-hidden'?: boolean;
 }
 
 export default function SvgIcon({
   name,
   className = 'w-5 h-5',
   'aria-hidden': ariaHidden = true,
-}: SvgIconProps) {
+}) {
   const parsed = getParsedSvg(name);
 
   if (!parsed) {

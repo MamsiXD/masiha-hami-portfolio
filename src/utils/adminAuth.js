@@ -24,11 +24,11 @@ const SHA256_INIT = [
   0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19,
 ];
 
-function rotr(val: number, bits: number): number {
+function rotr(val, bits) {
   return (val >>> bits) | (val << (32 - bits));
 }
 
-function sha256Bytes(input: Uint8Array): Uint8Array {
+function sha256Bytes(input) {
   const bitLen = input.length * 8;
   const paddedLen = Math.ceil((input.length + 9) / 64) * 64;
   const padded = new Uint8Array(paddedLen);
@@ -102,11 +102,11 @@ function sha256Bytes(input: Uint8Array): Uint8Array {
   return out;
 }
 
-function bytesToHex(bytes: Uint8Array): string {
+function bytesToHex(bytes) {
   return Array.from(bytes, (b) => b.toString(16).padStart(2, '0')).join('');
 }
 
-function constantTimeEqual(a: string, b: string): boolean {
+function constantTimeEqual(a, b) {
   if (a.length !== b.length) return false;
   let diff = 0;
   for (let i = 0; i < a.length; i++) {
@@ -115,30 +115,25 @@ function constantTimeEqual(a: string, b: string): boolean {
   return diff === 0;
 }
 
-function deriveCredentialDigest(username: string, password: string): string {
+function deriveCredentialDigest(username, password) {
   const encoder = new TextEncoder();
-  let buf: Uint8Array = encoder.encode(`${AUTH_SALT}\0${username}\0${password}`);
+  let buf = encoder.encode(`${AUTH_SALT}\0${username}\0${password}`);
   for (let i = 0; i < AUTH_ROUNDS; i++) {
     buf = sha256Bytes(buf);
   }
   return bytesToHex(buf);
 }
 
-function computeSessionProof(digest: string, expiresAt: number): string {
+function computeSessionProof(digest, expiresAt) {
   const encoder = new TextEncoder();
   return bytesToHex(sha256Bytes(encoder.encode(`${digest}:${AUTH_SALT}:${expiresAt}`)));
 }
 
-interface LockoutState {
-  attempts: number;
-  lockedUntil: number;
-}
-
-function readLockoutState(): LockoutState {
+function readLockoutState() {
   try {
     const raw = localStorage.getItem(LOCKOUT_KEY);
     if (!raw) return { attempts: 0, lockedUntil: 0 };
-    const parsed = JSON.parse(raw) as Partial<LockoutState>;
+    const parsed = JSON.parse(raw);
     return {
       attempts: typeof parsed.attempts === 'number' ? parsed.attempts : 0,
       lockedUntil: typeof parsed.lockedUntil === 'number' ? parsed.lockedUntil : 0,
@@ -148,7 +143,7 @@ function readLockoutState(): LockoutState {
   }
 }
 
-function writeLockoutState(state: LockoutState): void {
+function writeLockoutState(state) {
   try {
     localStorage.setItem(LOCKOUT_KEY, JSON.stringify(state));
   } catch {
@@ -156,17 +151,17 @@ function writeLockoutState(state: LockoutState): void {
   }
 }
 
-export function getLockoutRemainingSeconds(): number {
+export function getLockoutRemainingSeconds() {
   const { lockedUntil } = readLockoutState();
   const remaining = lockedUntil - Date.now();
   return remaining > 0 ? Math.ceil(remaining / 1000) : 0;
 }
 
-export function isAdminAuthenticated(): boolean {
+export function isAdminAuthenticated() {
   try {
     const raw = sessionStorage.getItem(SESSION_KEY);
     if (!raw) return false;
-    const parsed = JSON.parse(raw) as { expiresAt?: number; proof?: string };
+    const parsed = JSON.parse(raw);
     if (typeof parsed.expiresAt !== 'number' || typeof parsed.proof !== 'string') {
       return false;
     }
@@ -181,10 +176,7 @@ export function isAdminAuthenticated(): boolean {
   }
 }
 
-export function verifyAndCreateSession(
-  username: string,
-  password: string
-): { ok: true } | { ok: false; lockedSeconds: number; attemptsLeft: number } {
+export function verifyAndCreateSession(username, password) {
   const lockedSeconds = getLockoutRemainingSeconds();
   if (lockedSeconds > 0) {
     return { ok: false, lockedSeconds, attemptsLeft: 0 };
@@ -225,7 +217,7 @@ export function verifyAndCreateSession(
   };
 }
 
-export function clearAdminSession(): void {
+export function clearAdminSession() {
   try {
     sessionStorage.removeItem(SESSION_KEY);
   } catch {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import SvgIcon from '../../components/SvgIcon';
 import AdminLayout from '../../components/admin/AdminLayout';
@@ -20,7 +20,7 @@ export default function AdminOverviewPage() {
     toggleProjectFeatured,
   } = usePortfolio();
 
-  const [draggedIdx, setDraggedIdx] = useState<number | null>(null);
+  const [draggedIdx, setDraggedIdx] = useState(null);
   const [showAddSection, setShowAddSection] = useState(false);
   const [newSecTitle, setNewSecTitle] = useState('');
   const [newSecAnchor, setNewSecAnchor] = useState('');
@@ -35,7 +35,7 @@ export default function AdminOverviewPage() {
   const spotlightProject =
     cms.projects.find((p) => p.featured) ?? cms.projects[0];
 
-  const handleAddCustomSection = (e: React.FormEvent) => {
+  const handleAddCustomSection = (e) => {
     e.preventDefault();
     if (!newSecTitle.trim()) return;
     addCustomSection(
@@ -107,7 +107,7 @@ export default function AdminOverviewPage() {
           </div>
         </div>
 
-        {/* Summary Metric Grid (2x3) */}
+        {/* Summary Metric Grid */}
         <div className="flex flex-col gap-space-xs">
           <div className="flex items-center justify-between">
             <span className="font-label-caps text-label-caps text-text-muted-dark uppercase tracking-wider">

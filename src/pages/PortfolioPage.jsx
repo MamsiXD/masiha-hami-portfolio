@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import SvgIcon from '../components/SvgIcon';
 import { usePortfolio } from '../context/PortfolioContext';
-import { LayoutSection, ProjectItem, SkillCategory } from '../types/portfolio';
-
-type SkillFilter = 'all' | SkillCategory;
 
 const ORBITAL_BADGE_SLOTS = [
   { dotClass: 'bg-cyan-400', posClass: 'top-8 left-6 lg:left-10 animate-float-slow' },
@@ -28,7 +25,7 @@ export default function PortfolioPage() {
   } = usePortfolio();
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [skillFilter, setSkillFilter] = useState<SkillFilter>('all');
+  const [skillFilter, setSkillFilter] = useState('all');
   const [copiedEmail, setCopiedEmail] = useState(false);
 
   const [contactName, setContactName] = useState('');
@@ -106,7 +103,7 @@ export default function PortfolioPage() {
     }
   };
 
-  const handleContactSubmit = (e: React.FormEvent) => {
+  const handleContactSubmit = (e) => {
     e.preventDefault();
     if (!contactName.trim() || !contactEmail.trim() || !contactMessage.trim()) return;
     addContactMessage(contactName.trim(), contactEmail.trim(), contactMessage.trim());
@@ -117,7 +114,7 @@ export default function PortfolioPage() {
     setTimeout(() => setFormSuccess(false), 4000);
   };
 
-  const renderProjectCard = (project: ProjectItem) => {
+  const renderProjectCard = (project) => {
     const title = language === 'fa' ? project.titleFa : project.titleEn;
     const desc = language === 'fa' ? project.descriptionFa : project.descriptionEn;
     const featuredLabel = language === 'fa' ? 'پروژه منتخب' : 'Featured Project';
@@ -296,7 +293,6 @@ export default function PortfolioPage() {
       );
     }
 
-    // Custom / newly published projects from Admin CMS
     return (
       <article
         key={project.id}
@@ -340,7 +336,7 @@ export default function PortfolioPage() {
     );
   };
 
-  const renderSection = (section: LayoutSection) => {
+  const renderSection = (section) => {
     if (!section.visible) return null;
 
     switch (section.portfolioSectionId) {
@@ -409,7 +405,7 @@ export default function PortfolioPage() {
                   </a>
                 </div>
 
-                {/* Mobile Orbital Pills Constellation (non-overlapping on < md screens) */}
+                {/* Mobile Orbital Pills Constellation */}
                 {activeOrbitalBadges.length > 0 && (
                   <div className="md:hidden flex flex-wrap items-center justify-center gap-2 mt-8">
                     {activeOrbitalBadges.map((badge) => (
@@ -512,14 +508,12 @@ export default function PortfolioPage() {
 
             {/* Category Filter Pills */}
             <div className="flex items-center gap-1.5 mb-6 overflow-x-auto pb-1 no-scrollbar text-xs">
-              {(
-                [
-                  { id: 'all', key: 'filter_all' },
-                  { id: 'frontend', key: 'filter_frontend' },
-                  { id: 'styling', key: 'filter_styling' },
-                  { id: 'tools', key: 'filter_tools' },
-                ] as const
-              ).map((tab) => {
+              {[
+                { id: 'all', key: 'filter_all' },
+                { id: 'frontend', key: 'filter_frontend' },
+                { id: 'styling', key: 'filter_styling' },
+                { id: 'tools', key: 'filter_tools' },
+              ].map((tab) => {
                 const active = skillFilter === tab.id;
                 return (
                   <button

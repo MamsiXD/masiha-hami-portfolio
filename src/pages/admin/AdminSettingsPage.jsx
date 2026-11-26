@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SvgIcon from '../../components/SvgIcon';
 import AdminLayout from '../../components/admin/AdminLayout';
 import { usePortfolio } from '../../context/PortfolioContext';
@@ -28,7 +28,7 @@ export default function AdminSettingsPage() {
     setEmail(cms.email);
   }, [cms.heroStatusEn, cms.heroStatusFa, cms.email]);
 
-  const handleSave = (e: React.FormEvent) => {
+  const handleSave = (e) => {
     e.preventDefault();
     updateHeroStatus(statusEn, statusFa);
     updateContactEmail(email);

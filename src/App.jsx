@@ -10,7 +10,7 @@ const AdminSectionsPage = lazy(() => import('./pages/admin/AdminSectionsPage'));
 const AdminSettingsPage = lazy(() => import('./pages/admin/AdminSettingsPage'));
 const AdminSkillsPage = lazy(() => import('./pages/admin/AdminSkillsPage'));
 
-function AdminRoute({ children }: { children: React.ReactNode }) {
+function AdminRoute({ children }) {
   return (
     <AdminAuthGuard>
       <Suspense

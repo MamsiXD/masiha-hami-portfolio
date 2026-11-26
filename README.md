@@ -1,6 +1,6 @@
 # Masiha Hami — Frontend Developer & Portfolio CMS
 
-A bilingual (**English LTR / Persian RTL**) personal portfolio and content management dashboard built with **React**, **TypeScript**, **Tailwind CSS**, and **Vite**.
+A bilingual (**English LTR / Persian RTL**) personal portfolio and content management dashboard built with **React**, **JavaScript (JSX)**, **Tailwind CSS**, and **Vite**.
 
 ## Features
 
@@ -16,12 +16,15 @@ A bilingual (**English LTR / Persian RTL**) personal portfolio and content manag
 
 ## Local Fonts (Yekan Bakh)
 
-Place your local Yekan Bakh font files inside `public/assets/fonts/`:
-- `YekanBakh-Light.woff2` (or `.ttf`)
-- `YekanBakh-Regular.woff2` (or `.ttf`)
-- `YekanBakh-Medium.woff2` (or `.ttf`)
-- `YekanBakh-SemiBold.woff2` (or `.ttf`)
-- `YekanBakh-Bold.woff2` (or `.ttf`)
+Local Yekan Bakh `.woff2` webfonts are bundled inside `public/assets/fonts/`:
+- `YekanBakh-Thin.woff2` (100)
+- `YekanBakh-Light.woff2` (300)
+- `YekanBakh-Regular.woff2` (400)
+- `YekanBakh-SemiBold.woff2` (600)
+- `YekanBakh-Bold.woff2` (700)
+- `YekanBakh-ExtraBold.woff2` (800)
+- `YekanBakh-Black.woff2` (900)
+- `YekanBakh-ExtraBlack.woff2` (950)
 
 ## Getting Started
 
@@ -32,7 +35,7 @@ npm install
 # 2. Start development server
 npm run dev
 
-# 3. Type-check and build for production
+# 3. Syntax-check and build for production
 npm run lint
 npm run build
 ```

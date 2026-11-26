@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { usePortfolio } from '../../context/PortfolioContext';
 import {
@@ -9,28 +9,24 @@ import {
 } from '../../utils/adminAuth';
 import SvgIcon from '../SvgIcon';
 
-interface AdminAuthContextValue {
-  logout: () => void;
-}
-
-const AdminAuthContext = createContext<AdminAuthContextValue>({
+const AdminAuthContext = createContext({
   logout: () => {
     clearAdminSession();
   },
 });
 
-export function useAdminAuth(): AdminAuthContextValue {
+export function useAdminAuth() {
   return useContext(AdminAuthContext);
 }
 
-export default function AdminAuthGuard({ children }: { children: React.ReactNode }) {
+export default function AdminAuthGuard({ children }) {
   const { language, theme, toggleTheme } = usePortfolio();
-  const [authenticated, setAuthenticated] = useState<boolean>(() => isAdminAuthenticated());
+  const [authenticated, setAuthenticated] = useState(() => isAdminAuthenticated());
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [lockSeconds, setLockSeconds] = useState<number>(() => getLockoutRemainingSeconds());
+  const [lockSeconds, setLockSeconds] = useState(() => getLockoutRemainingSeconds());
 
   useEffect(() => {
     if (lockSeconds <= 0) return;
@@ -52,7 +48,7 @@ export default function AdminAuthGuard({ children }: { children: React.ReactNode
     setAuthenticated(false);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     if (lockSeconds > 0) return;
 

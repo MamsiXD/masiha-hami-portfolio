@@ -1,4 +1,4 @@
-import {createRoot} from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import '@fontsource/plus-jakarta-sans/300.css';
 import '@fontsource/plus-jakarta-sans/400.css';
 import '@fontsource/plus-jakarta-sans/500.css';
@@ -17,7 +17,7 @@ import '@fontsource/vazirmatn/400.css';
 import '@fontsource/vazirmatn/500.css';
 import '@fontsource/vazirmatn/600.css';
 import '@fontsource/vazirmatn/700.css';
-import App from './App.tsx';
+import App from './App.jsx';
 import './index.css';
 
-createRoot(document.getElementById('root')!).render(<App />);
+createRoot(document.getElementById('root')).render(<App />);

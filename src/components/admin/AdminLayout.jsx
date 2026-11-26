@@ -1,13 +1,7 @@
-import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { usePortfolio } from '../../context/PortfolioContext';
 import SvgIcon from '../SvgIcon';
 import { useAdminAuth } from './AdminAuthGuard';
-
-interface AdminLayoutProps {
-  breadcrumb: string;
-  children: React.ReactNode;
-}
 
 const NAV_ITEMS = [
   { to: '/admin', end: true, icon: 'dashboard', label: 'Overview', pathKey: 'overview' },
@@ -17,7 +11,7 @@ const NAV_ITEMS = [
   { to: '/admin/settings', end: false, icon: 'tune', label: 'Settings', pathKey: 'settings' },
 ];
 
-export default function AdminLayout({ breadcrumb, children }: AdminLayoutProps) {
+export default function AdminLayout({ breadcrumb, children }) {
   const { theme, toggleTheme } = usePortfolio();
   const { logout } = useAdminAuth();
 
